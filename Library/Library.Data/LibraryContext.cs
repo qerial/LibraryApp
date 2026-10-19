@@ -12,6 +12,6 @@ namespace Library.Data
         }
         public DbSet<BookDomain> Books { get; set; }
         public DbSet<LoanDomain> Loans { get; set; }
-        public DbSet<ReaderDomain> Categories { get; set; }
+        public DbSet<ReaderDomain> Readers { get; set; }
     }
 }

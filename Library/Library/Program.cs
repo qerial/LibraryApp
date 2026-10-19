@@ -1,6 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-using Library.Core.Domain;
+using Library.ApplicationServices.Services;
+using Library.Core.ServiceInterface;
 using Library.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library
 {
@@ -8,15 +9,18 @@ namespace Library
     {
         public static void Main(string[] args)
         {
+
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<IBookServices, BookServices>();
 
 
             // Seadistame andmebaasiühenduse appsettings.json failis oleva ConnectionStrings abil.
             builder.Services.AddDbContext<LibraryContext>(options =>
                 options.UseSqlServer(
-                    builder.Configuration.GetConnectionString("DefaultConnection")));
+                    builder.Configuration.GetConnectionString("LibraryContext")));
             var app = builder.Build();
 
             if (!app.Environment.IsDevelopment())
