@@ -1,10 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
+using Library.Core.Domain;
+
 
 namespace Library.Data
 {
-    internal class LibraryContext
+    public class LibraryContext : DbContext
     {
+        public LibraryContext(DbContextOptions<LibraryContext> options) : base(options)
+        {
+
+        }
+        public DbSet<BookDomain> Books { get; set; }
+        public DbSet<LoanDomain> Loans { get; set; }
+        public DbSet<ReaderDomain> Categories { get; set; }
     }
 }

@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="ServiceInterface\" />
-    <Folder Include="Dto\" />
   </ItemGroup>
 
   <ItemGroup>

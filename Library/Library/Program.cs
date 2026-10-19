@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using Library.Core.Domain;
+using Library.Data;
+
 namespace Library
 {
     public class Program
@@ -6,16 +10,18 @@ namespace Library
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+
+            // Seadistame andmebaasiühenduse appsettings.json failis oleva ConnectionStrings abil.
+            builder.Services.AddDbContext<LibraryContext>(options =>
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection")));
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
