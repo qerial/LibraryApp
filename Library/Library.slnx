@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Library.ApplicationServices/Library.ApplicationServices.csproj" />
+  <Project Path="Library.Core/Library.Core.csproj" />
+  <Project Path="Library.Data/Library.Data.csproj" />
+  <Project Path="Library/Library.csproj" />
+</Solution>
