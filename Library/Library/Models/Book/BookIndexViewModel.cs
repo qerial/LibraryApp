@@ -1,8 +1,6 @@
-﻿using Library.Core.Domain;
-
-namespace Library.Models
+﻿namespace Library.Models.Book
 {
-    public class BookCreateViewModel
+    public class BookIndexViewModel
     {
         public Guid Id { get; set; }
         public string Title { get; set; }

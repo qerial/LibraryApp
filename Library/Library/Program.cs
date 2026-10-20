@@ -17,6 +17,7 @@ namespace Library
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<IBookServices, BookServices>();
+            builder.Services.AddScoped<ILoanServices, LoanServices>();
 
 
             // Seadistame andmebaasiühenduse appsettings.json failis oleva ConnectionStrings abil.

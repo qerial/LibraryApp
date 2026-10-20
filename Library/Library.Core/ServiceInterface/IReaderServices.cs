@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Library.Core.ServiceInterface
 {
-    internal interface IReaderServices
+    public interface IReaderServices
     {
     }
 }
