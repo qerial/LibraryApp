@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Library.ApplicationServices.Services
 {
-    internal class LoanServices
+    public class LoanServices
     {
     }
 }

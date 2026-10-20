@@ -14,20 +14,16 @@ namespace Library.Controllers.Library
 
         private readonly IBookServices _bookServices;
         private readonly LibraryContext _context;
-        private readonly LINQSorting _linqSorting;
         public BookController
             (
             IBookServices bookServices,
-            LibraryContext context,
-                LINQSorting linqSorting
+            LibraryContext context
             )
 
 
         {
             _bookServices = bookServices;
             _context = context;
-            _linqSorting = linqSorting;
-
         }
 
         [HttpGet]
