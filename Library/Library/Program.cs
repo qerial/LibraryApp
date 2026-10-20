@@ -11,13 +11,11 @@ namespace Library
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            builder.Services.AddScoped<LINQSorting>();
-
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<IBookServices, BookServices>();
             builder.Services.AddScoped<ILoanServices, LoanServices>();
+            builder.Services.AddScoped<IReaderServices, ReaderServices>();
 
 
             // Seadistame andmebaasiühenduse appsettings.json failis oleva ConnectionStrings abil.

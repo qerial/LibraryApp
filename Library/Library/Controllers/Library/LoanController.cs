@@ -14,7 +14,8 @@ namespace Library.Controllers.Library
 
         public LoanController(
             ILoanServices loanServices,
-            LibraryContext context)
+            LibraryContext context
+            )
         {
             _loanServices = loanServices;
             _context = context;
@@ -50,7 +51,6 @@ namespace Library.Controllers.Library
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(LoanCreateViewModel vm)
         {
             if (ModelState.IsValid)
