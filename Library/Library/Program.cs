@@ -1,6 +1,7 @@
 using Library.ApplicationServices.Services;
 using Library.Core.ServiceInterface;
 using Library.Data;
+using Library.LINQ;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library
@@ -9,8 +10,9 @@ namespace Library
     {
         public static void Main(string[] args)
         {
-
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddScoped<LINQSorting>();
 
             builder.Services.AddControllersWithViews();
 

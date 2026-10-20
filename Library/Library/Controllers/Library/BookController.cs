@@ -2,8 +2,10 @@
 using Library.Core.Dto;
 using Library.Core.ServiceInterface;
 using Library.Data;
+using Library.LINQ;
 using Library.Models;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace Library.Controllers.Library
 {
@@ -12,14 +14,20 @@ namespace Library.Controllers.Library
 
         private readonly IBookServices _bookServices;
         private readonly LibraryContext _context;
+        private readonly LINQSorting _linqSorting;
         public BookController
             (
             IBookServices bookServices,
-            LibraryContext context
+            LibraryContext context,
+                LINQSorting linqSorting
             )
+
+
         {
             _bookServices = bookServices;
             _context = context;
+            _linqSorting = linqSorting;
+
         }
 
         [HttpGet]
@@ -70,5 +78,7 @@ namespace Library.Controllers.Library
             }
             return View(vm);
         }
+
+
     }
 }
