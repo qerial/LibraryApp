@@ -25,9 +25,4 @@
     <ProjectReference Include="..\Library.Data\Library.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Loan\" />
-    <Folder Include="Views\Reader\" />
-  </ItemGroup>
-
 </Project>
