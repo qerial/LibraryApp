@@ -1,4 +1,5 @@
-﻿using Library.ApplicationServices.Services;
+﻿
+using Library.ApplicationServices.Services;
 using Library.Core.Dto;
 using Library.Core.ServiceInterface;
 using Library.Data;
@@ -6,22 +7,20 @@ using Library.LINQ;
 using Library.Models;
 using Library.Models.Book;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Linq;
 
 namespace Library.Controllers.Library
 {
     public class BookController : Controller
     {
-
         private readonly IBookServices _bookServices;
         private readonly LibraryContext _context;
+
         public BookController
-            (
+        (
             IBookServices bookServices,
             LibraryContext context
-            )
-
-
+        )
         {
             _bookServices = bookServices;
             _context = context;
@@ -34,19 +33,39 @@ namespace Library.Controllers.Library
 
             return View(vm);
         }
-        public IActionResult Index()
+
+        public IActionResult Index(string? year, string? title, bool borrowedOnly = false)
         {
-            var result = _context.Books
-            .Select(x => new BookIndexViewModel
+            var books = _context.Books.ToList();
+            var sorting = new LINQSorting();
+
+            if (!string.IsNullOrWhiteSpace(year))
+            {
+                books = sorting.FindBooksByYear(books, year);
+            }
+
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                books = sorting.FindBooksTitle(books, title.Trim());
+            }
+
+            if (borrowedOnly)
+            {
+                books = sorting.UnavaliableBooks(books);
+            }
+
+            var result = books.Select(x => new BookIndexViewModel
             {
                 Id = x.Id,
                 Title = x.Title,
                 Author = x.Author,
                 PublishedYear = x.PublishedYear,
                 IsAvailable = x.IsAvailable
-            });
+            }).ToList();
 
-
+            ViewBag.Year = year;
+            ViewBag.TitleSearch = title;
+            ViewBag.BorrowedOnly = borrowedOnly;
 
             return View(result);
         }
@@ -64,18 +83,15 @@ namespace Library.Controllers.Library
                     Title = vm.Title,
                     Author = vm.Author,
                     PublishedYear = vm.PublishedYear,
-                    IsAvailable = vm.IsAvailable
+                    IsAvailable = true
                 };
-
-
 
                 var result = await _bookServices.Create(dto);
 
                 return RedirectToAction(nameof(Index));
             }
+
             return View(vm);
         }
-
-
     }
 }

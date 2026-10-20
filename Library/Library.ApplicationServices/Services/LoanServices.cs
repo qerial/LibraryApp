@@ -1,10 +1,8 @@
-﻿using Library.Core.Domain;
+﻿
+using Library.Core.Domain;
 using Library.Core.Dto;
 using Library.Core.ServiceInterface;
 using Library.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Library.ApplicationServices.Services
 {
@@ -27,11 +25,17 @@ namespace Library.ApplicationServices.Services
             domain.LoanDate = dto.LoanDate;
             domain.ReturnDate = dto.ReturnDate;
 
-            await _context.Loans.AddAsync(domain);
-            await _context.SaveChangesAsync();
+            var book = await _context.Books.FindAsync(dto.BookId);
+
+            if (book != null && book.IsAvailable)
+            {
+                book.IsAvailable = false;
+
+                await _context.Loans.AddAsync(domain);
+                await _context.SaveChangesAsync();
+            }
 
             return domain;
         }
-
     }
 }

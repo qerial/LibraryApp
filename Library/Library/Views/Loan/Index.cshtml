@@ -2,6 +2,7 @@
 
 @{
     int rowNumber = 1;
+    var loans = Model.ToList();
 }
 
 <div class="container py-5">
@@ -21,7 +22,7 @@
             <div class="card border-0 shadow-sm rounded-4">
                 <div class="card-body p-4">
                     <p class="text-muted mb-1">Total Loans</p>
-                    <h3 class="fw-bold mb-0">@Model.Count()</h3>
+                    <h3 class="fw-bold mb-0">@loans.Count</h3>
                 </div>
             </div>
         </div>
@@ -29,7 +30,7 @@
             <div class="card border-0 shadow-sm rounded-4">
                 <div class="card-body p-4">
                     <p class="text-muted mb-1">Currently Borrowed</p>
-                    <h3 class="fw-bold mb-0">@Model.Count(loan => loan.ReturnDate == null)</h3>
+                    <h3 class="fw-bold mb-0">@loans.Count(loan => loan.ReturnDate == null)</h3>
                 </div>
             </div>
         </div>
@@ -46,17 +47,17 @@
                 <thead class="table-light">
                     <tr>
                         <th class="ps-4 py-3">#</th>
-                        <th class="py-3">Book</th>
-                        <th class="py-3">Reader</th>
+                        <th class="py-3">Book ID</th>
+                        <th class="py-3">Reader ID</th>
                         <th class="py-3">Loan Date</th>
                         <th class="py-3">Return Date</th>
                         <th class="py-3">Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model.Any())
+                    @if (loans.Any())
                     {
-                        @foreach (var loan in Model)
+                        @foreach (var loan in loans)
                         {
                             <tr>
                                 <td class="ps-4">@rowNumber</td>
@@ -93,7 +94,7 @@
         </div>
 
         <div class="card-footer bg-white border-0 p-4">
-            <span class="text-muted small">Showing @Model.Count() loan(s)</span>
+            <span class="text-muted small">Showing @loans.Count loan(s)</span>
         </div>
     </div>
 </div>

@@ -3,6 +3,45 @@
 @{
     int rowNumber = 1;
 }
+
+
+<form asp-controller="Book" asp-action="Index" method="get" class="card border-0 shadow-sm rounded-4 mb-4">
+    <div class="card-body p-4">
+        <h5 class="fw-bold mb-3">Search Books</h5>
+
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label">Publication Year</label>
+                <input type="number" name="year" value="@ViewBag.Year"
+                       class="form-control rounded-3" placeholder="e.g. 2000" />
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Book Title</label>
+                <input type="text" name="title" value="@ViewBag.TitleSearch"
+                       class="form-control rounded-3" placeholder="Exact title" />
+            </div>
+
+            <div class="col-md-4 d-flex align-items-end">
+                <div class="form-check mb-2">
+                    <input type="checkbox" name="borrowedOnly" value="true"
+                           class="form-check-input" id="borrowedOnly"
+                           checked="@(ViewBag.BorrowedOnly == true)" />
+                    <label class="form-check-label" for="borrowedOnly">
+                        Currently borrowed only
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex gap-2 mt-3">
+            <button type="submit" class="btn btn-primary rounded-3">Search</button>
+            <a asp-controller="Book" asp-action="Index"
+               class="btn btn-outline-secondary rounded-3">Clear</a>
+        </div>
+    </div>
+</form>
+
 <div class="container py-5">
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-5">
         <div>

@@ -1,13 +1,12 @@
 ﻿@model Library.Models.Loan.LoanCreateViewModel
+
 @{
     ViewData["Title"] = "New Loan";
 }
 
 <div class="container py-5">
     <div class="mb-4">
-        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-2">
-            LIBRARY MANAGEMENT
-        </span>
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-2">LIBRARY MANAGEMENT</span>
         <h1 class="display-5 fw-bold mb-2">New Loan</h1>
         <p class="text-muted">Select a book and reader to register a loan.</p>
     </div>
@@ -15,15 +14,13 @@
     <div class="card border-0 shadow-sm rounded-4">
         <div class="card-body p-4 p-md-5">
             <form asp-controller="Loan" asp-action="Create" method="post">
-                @Html.AntiForgeryToken()
-
                 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
                 <div class="mb-4">
                     <label asp-for="BookId" class="form-label fw-semibold">Book</label>
                     <select asp-for="BookId"
                             class="form-select form-select-lg rounded-3"
-                            asp-items="@(new SelectList(ViewBag.Books, "Id", "Title"))">
+                            asp-items="@(new Microsoft.AspNetCore.Mvc.Rendering.SelectList(ViewBag.Books, "Id", "Title"))">
                         <option value="">Select a book</option>
                     </select>
                     <span asp-validation-for="BookId" class="text-danger"></span>
@@ -33,7 +30,7 @@
                     <label asp-for="ReaderId" class="form-label fw-semibold">Reader</label>
                     <select asp-for="ReaderId"
                             class="form-select form-select-lg rounded-3"
-                            asp-items="@(new SelectList(ViewBag.Readers, "Id", "FullName"))">
+                            asp-items="@(new Microsoft.AspNetCore.Mvc.Rendering.SelectList(ViewBag.Readers, "Id", "FullName"))">
                         <option value="">Select a reader</option>
                     </select>
                     <span asp-validation-for="ReaderId" class="text-danger"></span>
@@ -41,10 +38,7 @@
 
                 <div class="mb-4">
                     <label asp-for="LoanDate" class="form-label fw-semibold">Loan Date</label>
-                    <input asp-for="LoanDate"
-                           type="datetime-local"
-                           class="form-control form-control-lg rounded-3"
-                           readonly />
+                    <input asp-for="LoanDate" type="datetime-local" class="form-control form-control-lg rounded-3" readonly />
                     <span asp-validation-for="LoanDate" class="text-danger"></span>
                 </div>
 
@@ -52,9 +46,7 @@
                     <button type="submit" class="btn btn-primary btn-lg rounded-3 px-4">
                         Create Loan
                     </button>
-                    <a asp-controller="Loan"
-                       asp-action="Index"
-                       class="btn btn-outline-secondary btn-lg rounded-3 px-4">
+                    <a asp-controller="Loan" asp-action="Index" class="btn btn-outline-secondary btn-lg rounded-3 px-4">
                         Cancel
                     </a>
                 </div>
