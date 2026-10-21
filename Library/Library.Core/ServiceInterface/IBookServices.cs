@@ -10,6 +10,6 @@ namespace Library.Core.ServiceInterface
     {
         Task<BookDomain> Create(BookDto dto);
         Task<BookDomain> Update(BookDto dto);
-
+        Task<BookDomain> Delete(Guid Id);
     }
 }

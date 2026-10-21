@@ -47,6 +47,17 @@ namespace Library.ApplicationServices.Services
 
             return books;
         }
+        public async Task<BookDomain> Delete(Guid Id)
+        {
 
+            var result = await _context.Books
+                .FirstOrDefaultAsync(x => x.Id == Id);
+
+
+            _context.Books.Remove(result);
+            await _context.SaveChangesAsync();
+
+            return result;
+        }
     }
 }

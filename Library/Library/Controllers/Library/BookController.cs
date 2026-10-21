@@ -103,8 +103,8 @@ namespace Library.Controllers.Library
 
             var vm = new UpdateBookTitleViewModel();
             {
-                vm.Id = vm.Id;
-                vm.Title = vm.Title;
+                vm.Id = book.Id;
+                vm.Title = book.Title;
 
                 return View(vm);
             }
@@ -128,5 +128,42 @@ namespace Library.Controllers.Library
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+
+        public async Task<IActionResult> Delete(Guid Id)
+        {
+            var book = await _bookServices.Delete(Id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            var vm = new DeleteViewModel();
+
+            vm.Id = book.Id;
+            vm.Title = book.Title;
+            vm.Author = book.Author;
+            vm.PublishedYear = book.PublishedYear;
+            vm.IsAvailable = book.IsAvailable;
+
+
+
+            return View(vm);
+
+        }
+
+        [HttpPost]
+
+        public async Task<IActionResult> DeleteConfirmation(Guid Id)
+        {
+            var result = await _bookServices.Delete(Id);
+
+            if (result == null)
+            {
+                return RedirectToAction(nameof(Index));
+
+            }
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
