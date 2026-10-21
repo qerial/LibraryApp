@@ -47,12 +47,15 @@ namespace Library.ApplicationServices.Services
 
             return books;
         }
-        public async Task<BookDomain> Delete(Guid Id)
+        public async Task<BookDomain?> Delete(Guid id)
         {
-
             var result = await _context.Books
-                .FirstOrDefaultAsync(x => x.Id == Id);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
+            if (result == null)
+            {
+                return null;
+            }
 
             _context.Books.Remove(result);
             await _context.SaveChangesAsync();

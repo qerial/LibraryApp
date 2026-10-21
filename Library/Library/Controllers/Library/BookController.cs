@@ -130,39 +130,38 @@ namespace Library.Controllers.Library
 
         [HttpGet]
 
-        public async Task<IActionResult> Delete(Guid Id)
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
         {
-            var book = await _bookServices.Delete(Id);
+            var book = await _context.Books.FindAsync(id);
+
             if (book == null)
             {
                 return NotFound();
             }
 
-            var vm = new DeleteViewModel();
-
-            vm.Id = book.Id;
-            vm.Title = book.Title;
-            vm.Author = book.Author;
-            vm.PublishedYear = book.PublishedYear;
-            vm.IsAvailable = book.IsAvailable;
-
-
+            var vm = new DeleteViewModel
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Author = book.Author,
+                PublishedYear = book.PublishedYear,
+                IsAvailable = book.IsAvailable
+            };
 
             return View(vm);
-
         }
 
         [HttpPost]
-
-        public async Task<IActionResult> DeleteConfirmation(Guid Id)
+        public async Task<IActionResult> DeleteConfirmation(Guid id)
         {
-            var result = await _bookServices.Delete(Id);
+            var result = await _bookServices.Delete(id);
 
             if (result == null)
             {
-                return RedirectToAction(nameof(Index));
-
+                return NotFound();
             }
+
             return RedirectToAction(nameof(Index));
         }
     }
