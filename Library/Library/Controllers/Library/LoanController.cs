@@ -41,7 +41,9 @@ namespace Library.Controllers.Library
                 {
                     Id = x.Id,
                     BookId = x.BookId,
+                    Title = x.Book.Title,
                     ReaderId = x.ReaderId,
+                    FullName = x.Reader.FullName,
                     LoanDate = x.LoanDate,
                     ReturnDate = x.ReturnDate
                 })
@@ -49,18 +51,23 @@ namespace Library.Controllers.Library
 
             return View(result);
         }
-
         [HttpPost]
         public async Task<IActionResult> Create(LoanCreateViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                var bookExists = _context.Books.Any(x => x.Id == vm.BookId);
-                var readerExists = _context.Readers.Any(x => x.Id == vm.ReaderId);
+                var bookExists = await _context.Books
+                    .AnyAsync(x => x.Id == vm.BookId && x.IsAvailable);
+
+                var readerExists = await _context.Readers
+                    .AnyAsync(x => x.Id == vm.ReaderId);
 
                 if (!bookExists || !readerExists)
                 {
-                    ModelState.AddModelError("", "Please select a valid book and reader.");
+                    ModelState.AddModelError(
+                        "",
+                        "Please select a valid book and reader."
+                    );
                 }
                 else
                 {

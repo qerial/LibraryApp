@@ -61,8 +61,8 @@
                         {
                             <tr>
                                 <td class="ps-4">@rowNumber</td>
-                                <td>@loan.BookId</td>
-                                <td>@loan.ReaderId</td>
+                                <td>@loan.Title</td>
+                                <td>@loan.FullName</td>
                                 <td>@loan.LoanDate.ToString("dd.MM.yyyy HH:mm")</td>
                                 <td>@(loan.ReturnDate?.ToString("dd.MM.yyyy HH:mm") ?? "—")</td>
                                 <td>

@@ -22,6 +22,7 @@ namespace Library.ApplicationServices.Services
             domain.Id = Guid.NewGuid();
             domain.BookId = dto.BookId;
             domain.ReaderId = dto.ReaderId;
+
             domain.LoanDate = dto.LoanDate;
             domain.ReturnDate = dto.ReturnDate;
 

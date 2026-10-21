@@ -70,8 +70,6 @@ namespace Library.Controllers.Library
             return View(result);
         }
 
-        // kui oled teinud vormi, siis see meetod käivitatakse
-        // saadab andmed serverisse, kus need salvestatakse andmebaasi
         [HttpPost]
         public async Task<IActionResult> Create(BookCreateViewModel vm)
         {
@@ -82,8 +80,7 @@ namespace Library.Controllers.Library
                     Id = vm.Id,
                     Title = vm.Title,
                     Author = vm.Author,
-                    PublishedYear = vm.PublishedYear,
-                    IsAvailable = true
+                    PublishedYear = vm.PublishedYear
                 };
 
                 var result = await _bookServices.Create(dto);
@@ -93,5 +90,43 @@ namespace Library.Controllers.Library
 
             return View(vm);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid id)
+        {
+            var book = await _context.Books.FindAsync(id);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            var vm = new UpdateBookTitleViewModel();
+            {
+                vm.Id = vm.Id;
+                vm.Title = vm.Title;
+
+                return View(vm);
+            }
+        }
+            [HttpPost]
+        public async Task<IActionResult> Update(UpdateBookTitleViewModel vm)
+        {
+            var dto = new BookDto()
+            {
+                Id = vm.Id,
+                Title = vm.Title
+            };
+
+            var result = await _bookServices.Update(dto);
+
+            if (result == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

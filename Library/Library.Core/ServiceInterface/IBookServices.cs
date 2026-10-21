@@ -9,6 +9,7 @@ namespace Library.Core.ServiceInterface
     public interface IBookServices
     {
         Task<BookDomain> Create(BookDto dto);
+        Task<BookDomain> Update(BookDto dto);
 
     }
 }

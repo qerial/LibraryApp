@@ -17,23 +17,21 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
                 <div class="mb-4">
-                    <label asp-for="BookId" class="form-label fw-semibold">Book</label>
+                    <label asp-for="BookId">Book</label>
                     <select asp-for="BookId"
-                            class="form-select form-select-lg rounded-3"
-                            asp-items="@(new Microsoft.AspNetCore.Mvc.Rendering.SelectList(ViewBag.Books, "Id", "Title"))">
-                        <option value="">Select a book</option>
+                            class="form-select"
+                            asp-items="@(new SelectList(ViewBag.Books, "Id", "Title"))">
+                        <option value="">-- Select a book --</option>
                     </select>
-                    <span asp-validation-for="BookId" class="text-danger"></span>
                 </div>
 
                 <div class="mb-4">
-                    <label asp-for="ReaderId" class="form-label fw-semibold">Reader</label>
+                    <label asp-for="ReaderId">Reader</label>
                     <select asp-for="ReaderId"
-                            class="form-select form-select-lg rounded-3"
-                            asp-items="@(new Microsoft.AspNetCore.Mvc.Rendering.SelectList(ViewBag.Readers, "Id", "FullName"))">
-                        <option value="">Select a reader</option>
+                            class="form-select"
+                            asp-items="@(new SelectList(ViewBag.Readers, "Id", "FullName"))">
+                        <option value="">-- Select a reader --</option>
                     </select>
-                    <span asp-validation-for="ReaderId" class="text-danger"></span>
                 </div>
 
                 <div class="mb-4">

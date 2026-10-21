@@ -144,18 +144,11 @@
                                 <td>
                                     <div class="d-flex justify-content-center gap-2 flex-wrap">
 
-                                        <a asp-action="Details"
-                                               asp-controller="Book"
-                                               asp-route-id="@book.Id"
-                                               class="btn btn-sm btn-outline-info rounded-2">
-                                            Details
-                                        </a>
-
-                                        <a asp-action="Edit"
+                                        <a asp-action="Update"
                                                asp-controller="Book"
                                                asp-route-id="@book.Id"
                                                class="btn btn-sm btn-outline-primary rounded-2">
-                                            Update
+                                            Update book title
                                         </a>
 
                                         <a asp-action="Delete"

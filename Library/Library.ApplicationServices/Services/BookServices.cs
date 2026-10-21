@@ -30,6 +30,23 @@ namespace Library.ApplicationServices.Services
 
             return domain;
         }
+        public async Task<BookDomain> Update(BookDto dto)
+        {
+            var books = await _context.Books
+                .FirstOrDefaultAsync(x => x.Id == dto.Id);
+
+            if (books == null)
+            {
+                return null;
+            }
+
+            books.Id = dto.Id;
+            books.Title = dto.Title;
+
+            await _context.SaveChangesAsync();
+
+            return books;
+        }
 
     }
 }
