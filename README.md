@@ -2,7 +2,7 @@
 
 1) Milline on DbContext-i ülesanne?
 
-Vastus: DbContexti ülesanne on see et Ühendada kood andmebaasiga, et failid, data ja asjad kuhugi salvestada.
+Vastus: DbContexti ülesanne on see, et ühendada kood andmebaasiga, et failid, data ja asjad kuhugi salvestada.
 
 --------------------------------------------------------------------------------------------------------------------------------------
 
