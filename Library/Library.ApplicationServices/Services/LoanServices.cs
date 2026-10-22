@@ -38,5 +38,27 @@ namespace Library.ApplicationServices.Services
 
             return domain;
         }
+        public async Task<LoanDomain?> BookReturn(LoanDto dto)
+        {
+            var loan = await _context.Loans.FindAsync(dto.Id);
+
+            if (loan == null || loan.ReturnDate != null)
+            {
+                return null;
+            }
+
+            var book = await _context.Books.FindAsync(loan.BookId);
+
+            loan.ReturnDate = DateTime.Now;
+
+            if (book != null)
+            {
+                book.IsAvailable = true;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return loan;
+        }
     }
 }

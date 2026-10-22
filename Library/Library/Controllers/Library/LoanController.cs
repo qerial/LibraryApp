@@ -1,6 +1,7 @@
 ﻿using Library.Core.Dto;
 using Library.Core.ServiceInterface;
 using Library.Data;
+using Library.Models.Book;
 using Library.Models.Loan;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -100,6 +101,50 @@ namespace Library.Controllers.Library
             ViewBag.Readers = _context.Readers
                 .OrderBy(x => x.FullName)
                 .ToList();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Return(Guid id)
+        {
+            var loan = await _context.Loans
+                .Include(l => l.Book)
+                .Include(l => l.Reader)
+                .FirstOrDefaultAsync(l => l.Id == id);
+
+            if (loan == null || loan.ReturnDate != null)
+            {
+                return NotFound();
+            }
+
+            var vm = new LoanReturnViewModel
+            {
+                Id = loan.Id,
+                BookId = loan.BookId,
+                ReaderId = loan.ReaderId,
+                Title = loan.Book.Title,
+                FullName = loan.Reader.FullName,
+                LoanDate = loan.LoanDate,
+                ReturnDate = loan.ReturnDate
+            };
+
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Return(LoanReturnViewModel vm)
+        {
+            var dto = new LoanDto
+            {
+                Id = vm.Id
+            };
+
+            var result = await _loanServices.BookReturn(dto);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

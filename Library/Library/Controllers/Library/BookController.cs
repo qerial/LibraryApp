@@ -164,5 +164,7 @@ namespace Library.Controllers.Library
 
             return RedirectToAction(nameof(Index));
         }
+
+        //kontrollida kõiki laenutusi enne kui kustutad, sest kui kustutad raamatu kustub ka laenutused selle raamatuga.
     }
 }
